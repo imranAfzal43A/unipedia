@@ -1,0 +1,155 @@
+import { StyleSheet } from "react-native";
+const style = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+  },
+  settigsScreens: {
+    flex: 1,
+    marginTop: 30,
+    backgroundColor: "#fff",
+  },
+  fastLoginButton: {
+    width: "80%",
+    height: 50,
+    borderRadius: 43,
+    backgroundColor: "#FFFFFF",
+    justifyContent: "center",
+    alignSelf: "center",
+    margin: 4,
+  },
+  fastLoginButtonText: {
+    fontSize: 14,
+    alignSelf: "center",
+    color: "#DA83E3",
+  },
+  contactButton: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: "70%",
+    height: 50,
+    borderRadius: 43,
+    borderColor: "#E367A6",
+    borderWidth: 2,
+    // backgroundColor: "#975CDA",
+    justifyContent: "center",
+    alignSelf: "center",
+    margin: 4,
+    //position: "absolute",
+    bottom: 20,
+  },
+  Button: {
+    width: "80%",
+    height: 50,
+    borderRadius: 50,
+    backgroundColor: "#E367A6",
+    justifyContent: "center",
+    alignSelf: "center",
+    margin: 10,
+  },
+  vipRestoreButton: {
+    width: "80%",
+    height: 50,
+    borderRadius: 43,
+    justifyContent: "center",
+    alignSelf: "center",
+    marginTop: 10,
+  },
+  restoreButtonText: {
+    fontSize: 14,
+    alignSelf: "center",
+    color: "#CB61C5",
+  },
+  ButtonText: {
+    fontSize: 16,
+    alignSelf: "center",
+    color: "#fff",
+    fontFamily: "RB",
+  },
+  textStyle: {
+    height: 50,
+    padding: 6,
+    paddingLeft: 12,
+    alignSelf: "center",
+    fontFamily: "RM",
+    fontSize: 14,
+    marginRight: 5,
+    marginLeft: 5,
+    textAlign: "justify",
+  },
+  textInputTextLable: {
+    fontSize: 14,
+    width: "80%",
+    fontWeight: "bold",
+    color: "#BF7EEF",
+    margin: 16,
+    marginLeft: 36,
+  },
+  appBarTitle: {
+    fontSize: 14,
+    alignSelf: "center",
+    marginTop: 10,
+    fontFamily: "RM",
+    color: "black",
+  },
+  backButton: {
+    flexDirection: "row",
+    position: "absolute",
+    top: 12,
+    left: 12,
+  },
+  selectedSubCategory: {
+    backgroundColor: "#d4d5d6",
+    width: 60,
+    height: 20,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: "#F0F0F0",
+    alignSelf: "center",
+  },
+  selectedSubCategoryText: {
+    fontSize: 12,
+    color: "#CB61C5",
+    alignSelf: "center",
+  },
+  unselectedSubCategoryText: {
+    fontSize: 12,
+    color: "black",
+    alignSelf: "center",
+  },
+  selectedCategoryText: {
+    fontSize: 12,
+    color: "#CB61C5",
+    alignSelf: "center",
+  },
+  unselectedCategoryText: {
+    fontSize: 12,
+    color: "black",
+    alignSelf: "center",
+  },
+  subject: {
+    fontFamily: "RR",
+    fontSize: 10,
+    textAlign:'justify'
+  },
+  teacher: {
+    fontFamily: "RB",
+    fontSize: 10,
+    textAlign:'justify'
+  },
+  source: {
+    fontFamily: "RR",
+    fontSize: 10,
+    textAlign:'justify'
+  },
+  notesCard: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    margin: 10,
+    padding: 10,
+    borderRadius:6,
+    borderWidth:1,
+    borderColor:'black'
+  },
+});
+export default style;
