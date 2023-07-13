@@ -15,8 +15,21 @@ import SelectSemester from "../components/semesterModel";
 import { useCallback, useEffect, useState } from "react";
 import { doc, getDoc } from "firebase/firestore";
 import { firestoreDB } from "../config/firebaseConfig";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { StatusBar } from "expo-status-bar";
+import {
+  InterstitialAd,
+  TestIds,
+  AdEventType,
+} from "react-native-google-mobile-ads";
+
+const adUnitId = __DEV__
+  ? TestIds.INTERSTITIAL
+  : "ca-app-pub-5120759618248888/9392760660";
+
+const interstitial = InterstitialAd.createForAdRequest(adUnitId, {
+  requestNonPersonalizedAdsOnly: true,
+  keywords: ["fashion", "clothing"],
+});
 export default function DepartmentsScreen() {
   const navigation = useNavigation();
   const route = useRoute();
@@ -25,25 +38,42 @@ export default function DepartmentsScreen() {
   const [selectedDepartID, setSelectedDepartID] = useState("");
   const [departments, setDepartments] = useState([]);
   const [loading, setLoading] = useState(true);
-  const CACHE_KEY = "departmentsCache";
-  const CACHE_EXPIRATION = 24 * 60 * 60 * 1000; // 1 day in milliseconds
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    const unsubscribeLoaded = interstitial.addAdEventListener(
+      AdEventType.LOADED,
+      () => {
+        setLoaded(true);
+        console.log("Ad loaded successfully.");
+      }
+    );
+
+    const unsubscribeError = interstitial.addAdEventListener(
+      AdEventType.ERROR,
+      (error) => {
+        console.log("Ad failed to load: ", error);
+      }
+    );
+
+    interstitial.load();
+
+    return () => {
+      unsubscribeLoaded();
+      unsubscribeError();
+    };
+  }, []);
+
+  useEffect(() => {
+    if (loaded) {
+      interstitial.show();
+      setLoaded(false);
+    }
+  }, [loaded]);
+  // No advert ready to show yet
 
   const getDepartments = useCallback(async () => {
     try {
-      const cachedData = await AsyncStorage.getItem(CACHE_KEY);
-
-      if (cachedData) {
-        const { data, timestamp } = JSON.parse(cachedData);
-        const currentTime = new Date().getTime();
-
-        if (currentTime - timestamp < CACHE_EXPIRATION) {
-          console.log("Using cached data");
-          setDepartments(data);
-          setLoading(false);
-          return;
-        }
-      }
-
       const docRef = doc(firestoreDB, "data", route.params.id);
       const docSnap = await getDoc(docRef);
 
@@ -52,12 +82,6 @@ export default function DepartmentsScreen() {
         console.log("Fetched data:", departments);
         setDepartments(departments);
 
-        const cachedData = {
-          data: departments,
-          timestamp: new Date().getTime(),
-        };
-
-        AsyncStorage.setItem(CACHE_KEY, JSON.stringify(cachedData));
         setLoading(false);
       } else {
         setLoading(false);
@@ -94,19 +118,20 @@ export default function DepartmentsScreen() {
         onRequestClose={setModalVisible}
         DepartmentID={selectedDepartID}
       />
-      <View  style={{
+      <View
+        style={{
           marginTop: 20,
-          justifyContent:"center",
+          justifyContent: "center",
           flexDirection: "row",
-          
-        }}>
-      <Text style={[style.appBarTitle,{fontSize:18}]}>Departmants</Text>
-      <TouchableOpacity
-        style={style.backButton}
-        onPress={() => navigation.goBack()}
+        }}
       >
-        <Entypo name={"chevron-left"} size={24} color="#fff" />
-      </TouchableOpacity>
+        <Text style={[style.appBarTitle, { fontSize: 18 }]}>Departmants</Text>
+        <TouchableOpacity
+          style={style.backButton}
+          onPress={() => navigation.goBack()}
+        >
+          <Entypo name={"chevron-left"} size={24} color="#fff" />
+        </TouchableOpacity>
       </View>
       <View style={{ justifyContent: "center", marginTop: 60 }}>
         {!loading ? (

@@ -5,35 +5,51 @@ import {
   Text,
   FlatList,
   ActivityIndicator,
+  Button,
 } from "react-native";
 import UniCard from "../components/uniCard";
 import { useNavigation } from "@react-navigation/native";
 import { firestoreDB } from "../config/firebaseConfig";
 import { collection, getDocs } from "firebase/firestore";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import {
+  InterstitialAd,
+  AdEventType,
+  TestIds,
+} from "react-native-google-mobile-ads";
+
+const adUnitId = __DEV__
+  ? TestIds.INTERSTITIAL
+  : "ca-app-pub-xxxxxxxxxxxxx/yyyyyyyyyyyyyy";
+
+const interstitial = InterstitialAd.createForAdRequest(adUnitId, {
+  requestNonPersonalizedAdsOnly: true,
+  keywords: ["fashion", "clothing"],
+});
+
 export default function Unipedia() {
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    const unsubscribe = interstitial.addAdEventListener(
+      AdEventType.LOADED,
+      () => {
+        setLoaded(true);
+      }
+    );
+
+    // Start loading the interstitial straight away
+    interstitial.load();
+
+    // Unsubscribe from events on unmount
+    return unsubscribe;
+  }, []);
+
   const navigation = useNavigation();
   const [universities, setUniversities] = useState([]);
   const [loading, setLoading] = useState(true);
-  const CACHE_KEY = "universitiesCache";
-  const CACHE_EXPIRATION = 24 * 60 * 60 * 1000; // 1 day in milliseconds
 
   const getUniversities = useCallback(async () => {
     try {
-      const cachedData = await AsyncStorage.getItem(CACHE_KEY);
-
-      if (cachedData) {
-        const { data, timestamp } = JSON.parse(cachedData);
-        const currentTime = new Date().getTime();
-
-        if (currentTime - timestamp < CACHE_EXPIRATION) {
-          console.log("Using cached data");
-          setUniversities(data);
-          setLoading(false);
-          return;
-        }
-      }
-
       const querySnapshot = await getDocs(
         collection(firestoreDB, "universities")
       );
@@ -46,14 +62,8 @@ export default function Unipedia() {
         const universities = uniList[0].universities;
         console.log("Fetched data:", universities);
         setUniversities(universities);
-
-        const cachedData = {
-          data: universities,
-          timestamp: new Date().getTime(),
-        };
-        setLoading(false);
-        AsyncStorage.setItem(CACHE_KEY, JSON.stringify(cachedData));
       }
+      setLoading(false);
     } catch (e) {
       setLoading(false);
       console.log("Error! Cannot get universities:", e);
@@ -74,7 +84,7 @@ export default function Unipedia() {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
       <View style={{ marginTop: 30, margin: 10, padding: 10 }}>
-        <Text style={{ fontSize: 18, fontFamily: "RM" ,margin:2}}>
+        <Text style={{ fontSize: 18, fontFamily: "RM", margin: 2 }}>
           List of Universites
         </Text>
         {!loading ? (
@@ -82,6 +92,12 @@ export default function Unipedia() {
         ) : (
           <ActivityIndicator size={"large"} color={"#CB61C5"} />
         )}
+        <Button
+          title="Show Interstitial"
+          onPress={() => {
+            interstitial.show();
+          }}
+        />
       </View>
     </SafeAreaView>
   );

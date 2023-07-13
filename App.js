@@ -2,7 +2,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect } from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import AboutScreen from "./screens/aboutScreen";
 import DepartmentsScreen from "./screens/departmentsScreen";
