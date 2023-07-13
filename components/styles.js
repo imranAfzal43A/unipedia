@@ -6,7 +6,7 @@ const style = StyleSheet.create({
   },
   settigsScreens: {
     flex: 1,
-    marginTop: 30,
+
     backgroundColor: "#fff",
   },
   fastLoginButton: {
@@ -86,70 +86,46 @@ const style = StyleSheet.create({
     marginLeft: 36,
   },
   appBarTitle: {
-    fontSize: 14,
-    alignSelf: "center",
-    marginTop: 10,
+    fontSize: 16,
+    position: "absolute",
+    top: 16,
     fontFamily: "RM",
     color: "black",
   },
   backButton: {
-    flexDirection: "row",
     position: "absolute",
     top: 12,
     left: 12,
-  },
-  selectedSubCategory: {
-    backgroundColor: "#d4d5d6",
-    width: 60,
-    height: 20,
+    backgroundColor: "#E367A6",
     borderRadius: 10,
-    borderWidth: 1,
-    borderColor: "#F0F0F0",
-    alignSelf: "center",
+    padding: 6,
   },
-  selectedSubCategoryText: {
-    fontSize: 12,
-    color: "#CB61C5",
-    alignSelf: "center",
-  },
-  unselectedSubCategoryText: {
-    fontSize: 12,
-    color: "black",
-    alignSelf: "center",
-  },
-  selectedCategoryText: {
-    fontSize: 12,
-    color: "#CB61C5",
-    alignSelf: "center",
-  },
-  unselectedCategoryText: {
-    fontSize: 12,
-    color: "black",
-    alignSelf: "center",
-  },
+
   subject: {
     fontFamily: "RR",
     fontSize: 10,
-    textAlign:'justify'
+    textAlign: "justify",
   },
   teacher: {
     fontFamily: "RB",
     fontSize: 10,
-    textAlign:'justify'
+    textAlign: "justify",
   },
   source: {
     fontFamily: "RR",
     fontSize: 10,
-    textAlign:'justify'
+    textAlign: "justify",
   },
   notesCard: {
     flexDirection: "row",
     justifyContent: "space-between",
-    margin: 10,
+    marginRight: 10,
+    marginLeft: 10,
+    marginBottom: 4,
     padding: 10,
-    borderRadius:6,
-    borderWidth:1,
-    borderColor:'black'
+    borderRadius: 6,
+    borderWidth: 1,
+    borderColor: "black",
   },
 });
 export default style;

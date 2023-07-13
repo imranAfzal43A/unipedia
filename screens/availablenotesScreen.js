@@ -8,46 +8,31 @@ import {
 import style from "../components/styles";
 import { Entypo, Ionicons } from "@expo/vector-icons";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import SepratorLine from "../components/sepratorLine";
-import * as Linking from "expo-linking";
 import { useCallback, useEffect, useState } from "react";
 import { FlatList } from "react-native";
-import CustomButton from "../components/myButton";
-import { doc, getDoc } from "firebase/firestore";
+import * as Linking from "expo-linking";
+import { collection, getDocs } from "firebase/firestore";
 import { firestoreDB } from "../config/firebaseConfig";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 export default function AvailAbleNotesScreen() {
   const navigation = useNavigation();
   const route = useRoute();
   console.log("", route.params);
   const [notes, setNotes] = useState([]);
-  const [papers, setPapers] = useState([]);
   const [loading, setLoading] = useState(true);
-  const CACHE_KEY = "notesCache";
-  const CACHE_EXPIRATION = 24 * 60 * 60 * 1000; // 1 day in milliseconds
-
   const getNotes = useCallback(async () => {
+    const url = `data/${route.params.details.departmentID}/${route.params.details.url}`;
+    console.log(url);
     try {
-      const docRef = doc(
-        firestoreDB,
-        "data",
-        route.params.details.departmentID
-      );
-      const docSnap = await getDoc(docRef);
+      const querySnapshot = await getDocs(collection(firestoreDB, url));
+      const notes = [];
+      querySnapshot.forEach((doc) => {
+        notes.push(doc.data());
+      });
 
-      if (docSnap.exists()) {
-        const departments = docSnap.data();
-        setNotes(
-          departments.semesters[route.params.details.semester - 1].notes
-        );
-        setPapers(
-          departments.semesters[route.params.details.semester - 1].papers
-        );
-        setLoading(false);
-      } else {
-        setLoading(false);
-        console.log("No such document!");
+      if (notes.length > 0) {
+        setNotes(notes);
       }
+      setLoading(false);
     } catch (e) {
       setLoading(false);
       console.log("Error! Cannot get notes:", e);
@@ -64,18 +49,36 @@ export default function AvailAbleNotesScreen() {
             Subject: <Text style={style.teacher}>{item.subject}</Text>
           </Text>
           <Text style={style.source}>
-            Teacher: <Text style={style.teacher}>{item.teacher}</Text>
+            Teacher:
+            <Text style={style.teacher}>
+              {item.teacher ? item.teacher : "Unknown"}
+            </Text>
           </Text>
           <Text style={style.source}>
-            Source: <Text style={style.teacher}>{item.source}</Text>
+            Source:
+            <Text style={style.teacher}>
+              {item.source ? item.source : "Unknown"}
+            </Text>
+          </Text>
+          <Text style={style.source}>
+            Type:
+            <Text style={style.teacher}>
+              {item.type ? item.type : "Unknown"}
+            </Text>
           </Text>
         </View>
         <View style={{ justifyContent: "center" }}>
           <Ionicons
             name="ios-cloud-download"
             size={30}
-            color="#CB61C5"
-            onPress={() => alert("Sorry notes will be available soon")}
+            color="#E367A6"
+            onPress={() => {
+              if (item?.link === "link") {
+                alert("Notes not available yet");
+              } else {
+                Linking.openURL(item.link);
+              }
+            }}
           />
         </View>
       </View>
@@ -83,18 +86,26 @@ export default function AvailAbleNotesScreen() {
   };
   return (
     <SafeAreaView style={style.settigsScreens}>
-      <Text style={style.appBarTitle}>{route.params.details.department}</Text>
-      <TouchableOpacity
-        style={style.backButton}
-        onPress={() => navigation.goBack()}
+      <View
+        style={{
+          marginTop: 20,
+          justifyContent: "center",
+          flexDirection: "row",
+        }}
       >
-        <Entypo name={"chevron-left"} size={24} color="black" />
-      </TouchableOpacity>
+        <TouchableOpacity
+          style={style.backButton}
+          onPress={() => navigation.goBack()}
+        >
+          <Entypo name={"chevron-left"} size={24} color="#fff" />
+        </TouchableOpacity>
+        <Text style={style.appBarTitle}>{route.params.details.department}</Text>
+      </View>
       <View
         style={{
           flexDirection: "row",
           justifyContent: "space-evenly",
-          marginTop: 20,
+          marginTop: 50,
         }}
       >
         <Text style={style.textStyle}>{route.params.details.program}</Text>
@@ -104,25 +115,14 @@ export default function AvailAbleNotesScreen() {
       </View>
       {!loading ? (
         <>
-          <Text style={[style.textStyle, { alignSelf: "flex-start" }]}>
-            Notes
-          </Text>
           {notes.length != 0 ? (
             <FlatList data={notes} renderItem={renderItem} />
           ) : (
             <Text style={style.textStyle}>Sorry! no notes available</Text>
           )}
-          <Text style={[style.textStyle, { alignSelf: "flex-start" }]}>
-            Past papers
-          </Text>
-          {papers.length != 0 ? (
-            <FlatList data={notes} renderItem={renderItem} />
-          ) : (
-            <Text style={style.textStyle}>Sorry! no papers available</Text>
-          )}
         </>
       ) : (
-        <ActivityIndicator size={"large"} color={"#CB61C5"} />
+        <ActivityIndicator size={"large"} color={"#E367A6"} />
       )}
     </SafeAreaView>
   );

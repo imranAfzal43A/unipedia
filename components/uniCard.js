@@ -8,7 +8,11 @@ export default function UniCard({ uniName, onPress }) {
         alignSelf: "center",
         justifyContent: "space-between",
         alignItems: "center",
-        marginTop:8
+        marginTop: 8,
+        borderRadius: 10,
+        borderWidth: 1,
+        padding: 10,
+        margin: 5,
       }}
       onPress={onPress}
     >
@@ -18,12 +22,13 @@ export default function UniCard({ uniName, onPress }) {
           padding: 4,
           alignSelf: "center",
           width: "90%",
-          fontFamily:'RM'
+          fontFamily: "RB",
         }}
       >
         {uniName}
       </Text>
-      <FontAwesome name="angle-right" size={28} color="#CB61C5" />
+
+      <FontAwesome name="caret-right" size={28} color= "#E367A6" />
     </TouchableOpacity>
   );
 }

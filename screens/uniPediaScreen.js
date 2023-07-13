@@ -6,7 +6,6 @@ import {
   FlatList,
   ActivityIndicator,
 } from "react-native";
-import style from "../components/styles";
 import UniCard from "../components/uniCard";
 import { useNavigation } from "@react-navigation/native";
 import { firestoreDB } from "../config/firebaseConfig";
@@ -75,7 +74,7 @@ export default function Unipedia() {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
       <View style={{ marginTop: 30, margin: 10, padding: 10 }}>
-        <Text style={{ fontSize: 16, fontFamily: "RB" }}>
+        <Text style={{ fontSize: 18, fontFamily: "RM" ,margin:2}}>
           List of Universites
         </Text>
         {!loading ? (

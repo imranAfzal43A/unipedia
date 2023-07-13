@@ -86,7 +86,7 @@ export default function DepartmentsScreen() {
   };
   return (
     <SafeAreaView style={style.settigsScreens}>
-      <StatusBar style="auto" />
+      <StatusBar backgroundColor="#fff" />
       <SelectSemester
         modalVisible={modalVisible}
         setModalVisible={setModalVisible}
@@ -94,14 +94,21 @@ export default function DepartmentsScreen() {
         onRequestClose={setModalVisible}
         DepartmentID={selectedDepartID}
       />
-      <Text style={style.appBarTitle}>Departmants</Text>
+      <View  style={{
+          marginTop: 20,
+          justifyContent:"center",
+          flexDirection: "row",
+          
+        }}>
+      <Text style={[style.appBarTitle,{fontSize:18}]}>Departmants</Text>
       <TouchableOpacity
         style={style.backButton}
         onPress={() => navigation.goBack()}
       >
-        <Entypo name={"chevron-left"} size={24} color="black" />
+        <Entypo name={"chevron-left"} size={24} color="#fff" />
       </TouchableOpacity>
-      <View style={{ justifyContent: "center", marginTop: 50 }}>
+      </View>
+      <View style={{ justifyContent: "center", marginTop: 60 }}>
         {!loading ? (
           <FlatList data={departments} renderItem={renderItem} />
         ) : (

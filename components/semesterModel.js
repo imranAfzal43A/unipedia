@@ -1,15 +1,7 @@
 import { useNavigation } from "@react-navigation/native";
 import React, { useState } from "react";
 import { FlatList } from "react-native";
-import {
-  Alert,
-  Modal,
-  StyleSheet,
-  Text,
-  Pressable,
-  View,
-  Image,
-} from "react-native";
+import { Modal, StyleSheet, Text, Pressable, View } from "react-native";
 const bsSemesters = [
   {
     id: 1,
@@ -67,9 +59,8 @@ export default function SelectSemester({
           style.button,
 
           {
-            backgroundColor: "transparent",
             width: "35%",
-            borderColor: "#CB61C5",
+            borderColor: "#E367A6",
             borderWidth: 2,
             marginLeft: 20,
           },
@@ -82,6 +73,7 @@ export default function SelectSemester({
               program: selectedProgram,
               semester: item.id,
               departmentID: DepartmentID,
+              url: `${selectedProgram}${item.id}`,
             },
           });
         }}
@@ -103,9 +95,9 @@ export default function SelectSemester({
           <Pressable
             style={[
               style.button,
-              { backgroundColor: "#fff", borderWidth: 2, borderRadius: 6 },
+              { backgroundColor: "#fff", borderWidth: 1, borderRadius: 6 },
               selectedProgram === "BS"
-                ? { borderColor: "#CB61C5" }
+                ? { borderColor: "#E367A6" }
                 : { borderColor: "#fff" },
             ]}
             onPress={() => selectedProgramHandler("BS")}
@@ -124,9 +116,9 @@ export default function SelectSemester({
             style={[
               style.button,
               { marginTop: 20 },
-              { backgroundColor: "#fff", borderWidth: 2, borderRadius: 6 },
+              { backgroundColor: "#fff", borderWidth: 1, borderRadius: 6 },
               selectedProgram === "MS"
-                ? { borderColor: "#CB61C5" }
+                ? { borderColor: "#E367A6" }
                 : { borderColor: "#fff" },
             ]}
             onPress={() => selectedProgramHandler("MS")}
@@ -166,10 +158,11 @@ const style = StyleSheet.create({
   button: {
     borderRadius: 4,
     padding: 10,
-    elevation: 2,
+    //elevation: 2,
     width: "90%",
     alignSelf: "center",
     margin: 6,
+    backgroundColor: "#fff",
   },
   textStyle: {
     color: "black",
