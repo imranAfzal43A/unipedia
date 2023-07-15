@@ -5,7 +5,6 @@ import {
   Text,
   FlatList,
   ActivityIndicator,
-  Button,
 } from "react-native";
 import UniCard from "../components/uniCard";
 import { useNavigation } from "@react-navigation/native";
@@ -15,12 +14,17 @@ import {
   InterstitialAd,
   AdEventType,
   TestIds,
+  BannerAd,
+  BannerAdSize,
 } from "react-native-google-mobile-ads";
+import { StatusBar } from "expo-status-bar";
 
 const adUnitId = __DEV__
   ? TestIds.INTERSTITIAL
-  : "ca-app-pub-xxxxxxxxxxxxx/yyyyyyyyyyyyyy";
-
+  : "ca-app-pub-5120759618248888/9392760660";
+const adUnitIdBanner = __DEV__
+  ? TestIds.BANNER
+  : "ca-app-pub-5120759618248888/6385972308";
 const interstitial = InterstitialAd.createForAdRequest(adUnitId, {
   requestNonPersonalizedAdsOnly: true,
   keywords: ["fashion", "clothing"],
@@ -28,7 +32,6 @@ const interstitial = InterstitialAd.createForAdRequest(adUnitId, {
 
 export default function Unipedia() {
   const [loaded, setLoaded] = useState(false);
-
   useEffect(() => {
     const unsubscribe = interstitial.addAdEventListener(
       AdEventType.LOADED,
@@ -36,14 +39,15 @@ export default function Unipedia() {
         setLoaded(true);
       }
     );
-
-    // Start loading the interstitial straight away
     interstitial.load();
-
-    // Unsubscribe from events on unmount
     return unsubscribe;
   }, []);
-
+  useEffect(() => {
+    if (loaded) {
+      interstitial.show();
+      setLoaded(false);
+    }
+  }, [loaded]);
   const navigation = useNavigation();
   const [universities, setUniversities] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -83,6 +87,7 @@ export default function Unipedia() {
   };
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
+      <StatusBar backgroundColor="#fff" style="dark" />
       <View style={{ marginTop: 30, margin: 10, padding: 10 }}>
         <Text style={{ fontSize: 18, fontFamily: "RM", margin: 2 }}>
           List of Universites
@@ -92,10 +97,13 @@ export default function Unipedia() {
         ) : (
           <ActivityIndicator size={"large"} color={"#CB61C5"} />
         )}
-        <Button
-          title="Show Interstitial"
-          onPress={() => {
-            interstitial.show();
+      </View>
+      <View style={{ position: "absolute", bottom: 2 }}>
+        <BannerAd
+          unitId={adUnitIdBanner}
+          size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
+          requestOptions={{
+            requestNonPersonalizedAdsOnly: true,
           }}
         />
       </View>

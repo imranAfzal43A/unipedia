@@ -17,19 +17,14 @@ import { doc, getDoc } from "firebase/firestore";
 import { firestoreDB } from "../config/firebaseConfig";
 import { StatusBar } from "expo-status-bar";
 import {
-  InterstitialAd,
   TestIds,
-  AdEventType,
+  BannerAd,
+  BannerAdSize,
 } from "react-native-google-mobile-ads";
 
-const adUnitId = __DEV__
-  ? TestIds.INTERSTITIAL
-  : "ca-app-pub-5120759618248888/9392760660";
-
-const interstitial = InterstitialAd.createForAdRequest(adUnitId, {
-  requestNonPersonalizedAdsOnly: true,
-  keywords: ["fashion", "clothing"],
-});
+const adUnitIdBanner = __DEV__
+  ? TestIds.BANNER
+  : "ca-app-pub-5120759618248888/6385972308";
 export default function DepartmentsScreen() {
   const navigation = useNavigation();
   const route = useRoute();
@@ -38,40 +33,6 @@ export default function DepartmentsScreen() {
   const [selectedDepartID, setSelectedDepartID] = useState("");
   const [departments, setDepartments] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [loaded, setLoaded] = useState(false);
-
-  useEffect(() => {
-    const unsubscribeLoaded = interstitial.addAdEventListener(
-      AdEventType.LOADED,
-      () => {
-        setLoaded(true);
-        console.log("Ad loaded successfully.");
-      }
-    );
-
-    const unsubscribeError = interstitial.addAdEventListener(
-      AdEventType.ERROR,
-      (error) => {
-        console.log("Ad failed to load: ", error);
-      }
-    );
-
-    interstitial.load();
-
-    return () => {
-      unsubscribeLoaded();
-      unsubscribeError();
-    };
-  }, []);
-
-  useEffect(() => {
-    if (loaded) {
-      interstitial.show();
-      setLoaded(false);
-    }
-  }, [loaded]);
-  // No advert ready to show yet
-
   const getDepartments = useCallback(async () => {
     try {
       const docRef = doc(firestoreDB, "data", route.params.id);
@@ -110,7 +71,7 @@ export default function DepartmentsScreen() {
   };
   return (
     <SafeAreaView style={style.settigsScreens}>
-      <StatusBar backgroundColor="#fff" />
+      <StatusBar backgroundColor="#fff" style="dark" />
       <SelectSemester
         modalVisible={modalVisible}
         setModalVisible={setModalVisible}
@@ -141,6 +102,15 @@ export default function DepartmentsScreen() {
         )}
 
         <SepratorLine />
+      </View>
+      <View style={{ position: "absolute", bottom: 2 }}>
+        <BannerAd
+          unitId={adUnitIdBanner}
+          size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
+          requestOptions={{
+            requestNonPersonalizedAdsOnly: true,
+          }}
+        />
       </View>
     </SafeAreaView>
   );

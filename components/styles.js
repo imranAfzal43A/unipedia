@@ -18,11 +18,11 @@ const style = StyleSheet.create({
     alignSelf: "center",
     margin: 4,
   },
-  fastLoginButtonText: {
-    fontSize: 14,
-    alignSelf: "center",
-    color: "#DA83E3",
-  },
+  // fastLoginButtonText: {
+  //   fontSize: 14,
+  //   alignSelf: "center",
+  //   color: "#DA83E3",
+  // },
   contactButton: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -47,19 +47,19 @@ const style = StyleSheet.create({
     alignSelf: "center",
     margin: 10,
   },
-  vipRestoreButton: {
-    width: "80%",
-    height: 50,
-    borderRadius: 43,
-    justifyContent: "center",
-    alignSelf: "center",
-    marginTop: 10,
-  },
-  restoreButtonText: {
-    fontSize: 14,
-    alignSelf: "center",
-    color: "#CB61C5",
-  },
+  // vipRestoreButton: {
+  //   width: "80%",
+  //   height: 50,
+  //   borderRadius: 43,
+  //   justifyContent: "center",
+  //   alignSelf: "center",
+  //   marginTop: 10,
+  // },
+  // restoreButtonText: {
+  //   fontSize: 14,
+  //   alignSelf: "center",
+  //   color: "#CB61C5",
+  // },
   ButtonText: {
     fontSize: 16,
     alignSelf: "center",
@@ -77,14 +77,14 @@ const style = StyleSheet.create({
     marginLeft: 5,
     textAlign: "justify",
   },
-  textInputTextLable: {
-    fontSize: 14,
-    width: "80%",
-    fontWeight: "bold",
-    color: "#BF7EEF",
-    margin: 16,
-    marginLeft: 36,
-  },
+  // textInputTextLable: {
+  //   fontSize: 14,
+  //   width: "80%",
+  //   fontWeight: "bold",
+  //   color: "#BF7EEF",
+  //   margin: 16,
+  //   marginLeft: 36,
+  // },
   appBarTitle: {
     fontSize: 16,
     position: "absolute",
@@ -103,12 +103,12 @@ const style = StyleSheet.create({
 
   subject: {
     fontFamily: "RR",
-    fontSize: 10,
+    fontSize: 12,
     textAlign: "justify",
   },
   teacher: {
     fontFamily: "RB",
-    fontSize: 10,
+    fontSize: 14,
     textAlign: "justify",
   },
   source: {

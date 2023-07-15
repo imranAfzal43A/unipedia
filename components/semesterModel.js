@@ -2,6 +2,7 @@ import { useNavigation } from "@react-navigation/native";
 import React, { useState } from "react";
 import { FlatList } from "react-native";
 import { Modal, StyleSheet, Text, Pressable, View } from "react-native";
+import { AntDesign } from "@expo/vector-icons";
 const bsSemesters = [
   {
     id: 1,
@@ -132,7 +133,9 @@ export default function SelectSemester({
               numColumns={2}
             />
           ) : null}
+          
         </View>
+        <AntDesign name="closecircle" size={40} color="#E367A6" onPress={setModalVisible} />
       </View>
     </Modal>
   );
