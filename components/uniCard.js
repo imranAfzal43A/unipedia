@@ -4,6 +4,7 @@ export default function UniCard({ uniName, onPress }) {
   return (
     <TouchableOpacity
       style={{
+        flex:1,
         flexDirection: "row",
         alignSelf: "center",
         justifyContent: "space-between",
@@ -12,7 +13,7 @@ export default function UniCard({ uniName, onPress }) {
         borderRadius: 10,
         borderWidth: 1,
         padding: 10,
-        margin: 5,
+      
       }}
       onPress={onPress}
     >

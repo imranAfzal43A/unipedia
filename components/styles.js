@@ -18,11 +18,6 @@ const style = StyleSheet.create({
     alignSelf: "center",
     margin: 4,
   },
-  // fastLoginButtonText: {
-  //   fontSize: 14,
-  //   alignSelf: "center",
-  //   color: "#DA83E3",
-  // },
   contactButton: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -31,11 +26,9 @@ const style = StyleSheet.create({
     borderRadius: 43,
     borderColor: "#E367A6",
     borderWidth: 2,
-    // backgroundColor: "#975CDA",
     justifyContent: "center",
     alignSelf: "center",
     margin: 4,
-    //position: "absolute",
     bottom: 20,
   },
   Button: {
@@ -47,19 +40,6 @@ const style = StyleSheet.create({
     alignSelf: "center",
     margin: 10,
   },
-  // vipRestoreButton: {
-  //   width: "80%",
-  //   height: 50,
-  //   borderRadius: 43,
-  //   justifyContent: "center",
-  //   alignSelf: "center",
-  //   marginTop: 10,
-  // },
-  // restoreButtonText: {
-  //   fontSize: 14,
-  //   alignSelf: "center",
-  //   color: "#CB61C5",
-  // },
   ButtonText: {
     fontSize: 16,
     alignSelf: "center",
@@ -77,14 +57,6 @@ const style = StyleSheet.create({
     marginLeft: 5,
     textAlign: "justify",
   },
-  // textInputTextLable: {
-  //   fontSize: 14,
-  //   width: "80%",
-  //   fontWeight: "bold",
-  //   color: "#BF7EEF",
-  //   margin: 16,
-  //   marginLeft: 36,
-  // },
   appBarTitle: {
     fontSize: 16,
     position: "absolute",
@@ -103,7 +75,7 @@ const style = StyleSheet.create({
 
   subject: {
     fontFamily: "RR",
-    fontSize: 12,
+    fontSize: 10,
     textAlign: "justify",
   },
   teacher: {
@@ -119,10 +91,10 @@ const style = StyleSheet.create({
   notesCard: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginRight: 10,
-    marginLeft: 10,
+    marginRight: 5,
+    marginLeft: 5,
     marginBottom: 4,
-    padding: 10,
+    padding: 5,
     borderRadius: 6,
     borderWidth: 1,
     borderColor: "black",

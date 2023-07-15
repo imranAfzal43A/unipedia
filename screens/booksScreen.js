@@ -6,7 +6,6 @@ import {
   FlatList,
   ActivityIndicator,
 } from "react-native";
-import UniCard from "../components/uniCard";
 import { useNavigation } from "@react-navigation/native";
 import { firestoreDB } from "../config/firebaseConfig";
 import { collection, getDocs } from "firebase/firestore";
@@ -18,6 +17,9 @@ import {
   BannerAdSize,
 } from "react-native-google-mobile-ads";
 import { StatusBar } from "expo-status-bar";
+import * as Linking from "expo-linking";
+import style from "../components/styles";
+import { Ionicons } from "@expo/vector-icons";
 
 const adUnitId = __DEV__
   ? TestIds.INTERSTITIAL
@@ -30,7 +32,7 @@ const interstitial = InterstitialAd.createForAdRequest(adUnitId, {
   keywords: ["fashion", "clothing"],
 });
 
-export default function Unipedia() {
+export default function BooksScreen() {
   const [loaded, setLoaded] = useState(false);
   useEffect(() => {
     const unsubscribe = interstitial.addAdEventListener(
@@ -48,24 +50,20 @@ export default function Unipedia() {
       setLoaded(false);
     }
   }, [loaded]);
-  const navigation = useNavigation();
   const [universities, setUniversities] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const getUniversities = useCallback(async () => {
     try {
-      const querySnapshot = await getDocs(
-        collection(firestoreDB, "universities")
-      );
-      const uniList = [];
+      const querySnapshot = await getDocs(collection(firestoreDB, "books"));
+      const bookList = [];
       querySnapshot.forEach((doc) => {
-        uniList.push(doc.data());
+        bookList.push(doc.data());
       });
 
-      if (uniList.length > 0) {
-        const universities = uniList[0].universities;
-        console.log("Fetched data:", universities);
-        setUniversities(universities);
+      if (bookList.length > 0) {
+        console.log("Fetched data:", bookList);
+        setUniversities(bookList);
       }
       setLoading(false);
     } catch (e) {
@@ -79,18 +77,61 @@ export default function Unipedia() {
   }, []);
   const renderItem = ({ item }) => {
     return (
-      <UniCard
-        uniName={item.name}
-        onPress={() => navigation.navigate("Departments", { id: item.id })}
-      />
+      <View
+        style={{
+          justifyContent: "center",
+          alignItems: "center",
+          borderWidth: 1,
+          marginBottom: 4,
+          borderRadius: 4,
+          padding: 5,
+        }}
+      >
+        <Text style={style.subject}>
+          Name:{" "}
+          <Text style={[style.teacher, { fontSize: 12 }]}> {item.name}</Text>
+        </Text>
+        <Text style={style.source}>
+          Author:
+          <Text style={[style.teacher, { fontSize: 12 }]}>
+            {item.author ? item.author : "Unknown"}
+          </Text>
+        </Text>
+        <Text style={style.source}>
+          Source:
+          <Text style={[style.teacher, { fontSize: 12 }]}>
+            {item.source ? item.source : "Unknown"}
+          </Text>
+        </Text>
+        <Ionicons
+          name="ios-cloud-download"
+          size={40}
+          color="#E367A6"
+          onPress={() => {
+            if (item?.link === "link") {
+              alert("Notes not available yet");
+            } else {
+              Linking.openURL(item.link);
+            }
+          }}
+          style={{ alignSelf: "center" }}
+        />
+      </View>
     );
   };
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
       <StatusBar backgroundColor="#fff" style="dark" />
-      <View style={{ marginTop: 35,   }}>
-        <Text style={{ fontSize: 18, fontFamily: "RM", margin: 2,alignSelf:'center' }}>
-          List of Universites
+      <View style={{ marginTop: 30, margin: 10, padding: 10 }}>
+        <Text
+          style={{
+            fontSize: 18,
+            fontFamily: "RM",
+            margin: 2,
+            alignSelf: "center",
+          }}
+        >
+          List of Books
         </Text>
         {!loading ? (
           <FlatList data={universities} renderItem={renderItem} />

@@ -9,17 +9,14 @@ export default function DepartmentCard({ deptName, onPress }) {
         justifyContent: "space-around",
         alignItems: "center",
         borderWidth: 1,
-        //borderColor: "#CB61C5",
         width: "90%",
         borderRadius: 10,
         marginBottom: 4,
-        padding:2,
-
+        padding: 2,
       }}
       onPress={onPress}
     >
-       
-       <MaterialIcons name="brightness-1" size={20} color= "#E367A6" />
+      <MaterialIcons name="brightness-1" size={20} color="#E367A6" />
       <Text
         style={{
           fontSize: 14,
@@ -32,7 +29,6 @@ export default function DepartmentCard({ deptName, onPress }) {
       >
         {deptName}
       </Text>
-     
     </TouchableOpacity>
   );
 }

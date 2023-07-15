@@ -5,9 +5,8 @@ import {
   Text,
   FlatList,
   ActivityIndicator,
+  Image,
 } from "react-native";
-import UniCard from "../components/uniCard";
-import { useNavigation } from "@react-navigation/native";
 import { firestoreDB } from "../config/firebaseConfig";
 import { collection, getDocs } from "firebase/firestore";
 import {
@@ -18,7 +17,7 @@ import {
   BannerAdSize,
 } from "react-native-google-mobile-ads";
 import { StatusBar } from "expo-status-bar";
-
+import style from "../components/styles";
 const adUnitId = __DEV__
   ? TestIds.INTERSTITIAL
   : "ca-app-pub-5120759618248888/9392760660";
@@ -30,7 +29,7 @@ const interstitial = InterstitialAd.createForAdRequest(adUnitId, {
   keywords: ["fashion", "clothing"],
 });
 
-export default function Unipedia() {
+export default function NewsScreen() {
   const [loaded, setLoaded] = useState(false);
   useEffect(() => {
     const unsubscribe = interstitial.addAdEventListener(
@@ -48,24 +47,21 @@ export default function Unipedia() {
       setLoaded(false);
     }
   }, [loaded]);
-  const navigation = useNavigation();
   const [universities, setUniversities] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const getUniversities = useCallback(async () => {
     try {
       const querySnapshot = await getDocs(
-        collection(firestoreDB, "universities")
+        collection(firestoreDB, "notifications")
       );
-      const uniList = [];
+      const notiList = [];
       querySnapshot.forEach((doc) => {
-        uniList.push(doc.data());
+        notiList.push(doc.data());
       });
 
-      if (uniList.length > 0) {
-        const universities = uniList[0].universities;
-        console.log("Fetched data:", universities);
-        setUniversities(universities);
+      if (notiList.length > 0) {
+        setUniversities(notiList);
       }
       setLoading(false);
     } catch (e) {
@@ -78,20 +74,52 @@ export default function Unipedia() {
     getUniversities();
   }, []);
   const renderItem = ({ item }) => {
+    console.log(item);
     return (
-      <UniCard
-        uniName={item.name}
-        onPress={() => navigation.navigate("Departments", { id: item.id })}
-      />
+      <View
+        style={{
+          justifyContent: "center",
+          alignItems: "flex-start",
+          borderWidth: 1,
+          marginBottom: 4,
+          borderRadius: 4,
+          padding: 15,
+          backgroundColor: "#CB61C5",
+        }}
+      >
+        <Text style={[style.teacher]}>{item.title}</Text>
+        <Text style={style.teacher}>{item.description}</Text>
+        {item.image != "link" ? (
+          <Image
+            source={{ uri: item.image }}
+            resizeMode="contain"
+            style={{
+              width: 220,
+              height: 250,
+              borderRadius: 5,
+              alignSelf: "center",
+            }}
+          />
+        ) : null}
+      </View>
     );
   };
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
       <StatusBar backgroundColor="#fff" style="dark" />
-      <View style={{ marginTop: 35,   }}>
-        <Text style={{ fontSize: 18, fontFamily: "RM", margin: 2,alignSelf:'center' }}>
-          List of Universites
+      <View style={{ marginTop: 30, margin: 10, padding: 10 }}>
+        <Text
+          style={{
+            fontSize: 18,
+            fontFamily: "RM",
+            margin: 2,
+            alignSelf: "center",
+          }}
+        >
+          News and Updates
         </Text>
+      </View>
+      <View style={{ padding: 10 }}>
         {!loading ? (
           <FlatList data={universities} renderItem={renderItem} />
         ) : (

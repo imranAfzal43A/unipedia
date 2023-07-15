@@ -1,6 +1,6 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Ionicons } from "@expo/vector-icons";
+import { Entypo, Ionicons } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
 import { useCallback, useEffect } from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -11,6 +11,8 @@ import * as SplashScreen from "expo-splash-screen";
 import Unipedia from "./screens/uniPediaScreen";
 import AvailAbleNotesScreen from "./screens/availablenotesScreen";
 import { StatusBar } from "expo-status-bar";
+import BooksScreen from "./screens/booksScreen";
+import NewsScreen from "./screens/newsScreen";
 
 SplashScreen.preventAutoHideAsync();
 const Tab = createBottomTabNavigator();
@@ -29,6 +31,31 @@ const Tabs = () => {
         options={{
           tabBarIcon: ({ color }) => {
             return <FontAwesome name="university" size={24} color={color} />;
+          },
+          headerShown: false,
+          tabBarActiveTintColor: "#CB61C5",
+          headerTitle: () => null,
+        }}
+      />
+      <Tab.Screen
+        name="Books"
+        component={BooksScreen}
+        options={{
+          tabBarIcon: ({ color }) => {
+            return <Entypo name="open-book" size={24} color={color} />;
+          },
+          headerShown: false,
+          tabBarActiveTintColor: "#CB61C5",
+          headerTitle: () => null,
+        }}
+      />
+
+      <Tab.Screen
+        name="News"
+        component={NewsScreen}
+        options={{
+          tabBarIcon: ({ color }) => {
+            return <Ionicons name="md-planet-outline" size={24} color={color} />;
           },
           headerShown: false,
           tabBarActiveTintColor: "#CB61C5",
