@@ -6,6 +6,7 @@ import {
   FlatList,
   ActivityIndicator,
   Image,
+  TouchableOpacity,
 } from "react-native";
 import { firestoreDB } from "../config/firebaseConfig";
 import { collection, getDocs } from "firebase/firestore";
@@ -18,6 +19,7 @@ import {
 } from "react-native-google-mobile-ads";
 import { StatusBar } from "expo-status-bar";
 import style from "../components/styles";
+import { MaterialIcons } from "@expo/vector-icons";
 const adUnitId = __DEV__
   ? TestIds.INTERSTITIAL
   : "ca-app-pub-5120759618248888/9392760660";
@@ -29,7 +31,7 @@ const interstitial = InterstitialAd.createForAdRequest(adUnitId, {
   keywords: ["fashion", "clothing"],
 });
 
-export default function NewsScreen() {
+export default function NotificationScreen() {
   const [loaded, setLoaded] = useState(false);
   useEffect(() => {
     const unsubscribe = interstitial.addAdEventListener(
@@ -89,10 +91,10 @@ export default function NewsScreen() {
       >
         <Text style={[style.teacher]}>{item.title}</Text>
         <Text style={style.teacher}>{item.description}</Text>
-        {item.image != "link" ? (
+        {item.link != "link" ? (
           <Image
-            source={{ uri: item.image }}
-            resizeMode="contain"
+            source={{ uri: item.link }}
+            resizeMode="cover"
             style={{
               width: 220,
               height: 250,
@@ -104,6 +106,7 @@ export default function NewsScreen() {
       </View>
     );
   };
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
       <StatusBar backgroundColor="#fff" style="dark" />
@@ -116,14 +119,25 @@ export default function NewsScreen() {
             alignSelf: "center",
           }}
         >
-          News and Updates
+          Notifications
         </Text>
       </View>
       <View style={{ padding: 10 }}>
         {!loading ? (
-          <FlatList data={universities} renderItem={renderItem} />
+          <>
+            {universities.length != 0 ? (
+              <FlatList data={universities} renderItem={renderItem} />
+            ) : (
+              <View style={{ justifyContent: "center", alignItems: "center" }}>
+                <MaterialIcons name="error" size={40} color="#E367A6" />
+                <Text style={[style.textStyle, { fontSize: 18 }]}>
+                  No Notifications yet.
+                </Text>
+              </View>
+            )}
+          </>
         ) : (
-          <ActivityIndicator size={"large"} color={"#CB61C5"} />
+          <ActivityIndicator size={"large"} color={"#E367A6"} />
         )}
       </View>
       <View style={{ position: "absolute", bottom: 2 }}>

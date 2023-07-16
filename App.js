@@ -12,7 +12,7 @@ import Unipedia from "./screens/uniPediaScreen";
 import AvailAbleNotesScreen from "./screens/availablenotesScreen";
 import { StatusBar } from "expo-status-bar";
 import BooksScreen from "./screens/booksScreen";
-import NewsScreen from "./screens/newsScreen";
+import NotificationScreen from "./screens/notificationScreen";
 
 SplashScreen.preventAutoHideAsync();
 const Tab = createBottomTabNavigator();
@@ -51,11 +51,11 @@ const Tabs = () => {
       />
 
       <Tab.Screen
-        name="News"
-        component={NewsScreen}
+        name="Notifications"
+        component={NotificationScreen}
         options={{
           tabBarIcon: ({ color }) => {
-            return <Ionicons name="md-planet-outline" size={24} color={color} />;
+            return <Ionicons name="notifications" size={24} color={color} />;
           },
           headerShown: false,
           tabBarActiveTintColor: "#CB61C5",
@@ -122,11 +122,6 @@ export default function App() {
         <Stack.Screen
           name="Departments"
           component={DepartmentsScreen}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="About"
-          component={AboutScreen}
           options={{ headerShown: false }}
         />
         <Stack.Screen

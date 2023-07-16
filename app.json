@@ -33,7 +33,6 @@
     }
   },
   "react-native-google-mobile-ads": {
-    "android_app_id": "ca-app-pub-5120759618248888~6800001316",
-    "user_tracking_usage_description": "This identifier will be used to deliver personalized ads to you."
+    "android_app_id": "ca-app-pub-5120759618248888~6800001316"
   }
 }

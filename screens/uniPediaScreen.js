@@ -18,6 +18,8 @@ import {
   BannerAdSize,
 } from "react-native-google-mobile-ads";
 import { StatusBar } from "expo-status-bar";
+import { MaterialIcons } from "@expo/vector-icons";
+import style from "../components/styles";
 
 const adUnitId = __DEV__
   ? TestIds.INTERSTITIAL
@@ -77,6 +79,7 @@ export default function Unipedia() {
   useEffect(() => {
     getUniversities();
   }, []);
+
   const renderItem = ({ item }) => {
     return (
       <UniCard
@@ -88,14 +91,37 @@ export default function Unipedia() {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
       <StatusBar backgroundColor="#fff" style="dark" />
-      <View style={{ marginTop: 35,   }}>
-        <Text style={{ fontSize: 18, fontFamily: "RM", margin: 2,alignSelf:'center' }}>
+      <View style={{ marginTop: 35 }}>
+        <Text
+          style={{
+            fontSize: 18,
+            fontFamily: "RM",
+            margin: 2,
+            alignSelf: "center",
+          }}
+        >
           List of Universites
         </Text>
-        {!loading ? (
+        {/* {!loading ? (
           <FlatList data={universities} renderItem={renderItem} />
         ) : (
           <ActivityIndicator size={"large"} color={"#CB61C5"} />
+        )} */}
+        {!loading ? (
+          <>
+            {universities.length != 0 ? (
+              <FlatList data={universities} renderItem={renderItem} />
+            ) : (
+              <View style={{ justifyContent: "center", alignItems: "center" }}>
+                <MaterialIcons name="error" size={40} color="#E367A6" />
+                <Text style={[style.textStyle, { fontSize: 18 }]}>
+                  Sorry ! something went wrong.
+                </Text>
+              </View>
+            )}
+          </>
+        ) : (
+          <ActivityIndicator size={"large"} color={"#E367A6"} />
         )}
       </View>
       <View style={{ position: "absolute", bottom: 2 }}>
