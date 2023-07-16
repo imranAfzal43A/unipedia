@@ -92,7 +92,7 @@ export default function SelectSemester({
     >
       <View style={{ justifyContent: "center", alignItems: "center" }}>
         <View style={style.modalView}>
-          <Text style={style.modalText}>Select your programm</Text>
+          <Text style={style.modalText}>Select your programme</Text>
           <Pressable
             style={[
               style.button,
