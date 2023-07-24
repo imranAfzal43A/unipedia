@@ -2,59 +2,59 @@ import { SafeAreaView, Text, TouchableOpacity, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import * as Linking from "expo-linking";
 import style from "../components/styles";
-import {
-  InterstitialAd,
-  TestIds,
-  AdEventType,
-  BannerAd,
-  BannerAdSize,
-} from "react-native-google-mobile-ads";
+// import {
+//   InterstitialAd,
+//   TestIds,
+//   AdEventType,
+//   BannerAd,
+//   BannerAdSize,
+// } from "react-native-google-mobile-ads";
 import { useEffect, useState } from "react";
 import { StatusBar } from "expo-status-bar";
 
-const adUnitId = __DEV__
-  ? TestIds.INTERSTITIAL
-  : "ca-app-pub-5120759618248888/9392760660";
-const adUnitIdBanner = __DEV__
-  ? TestIds.BANNER
-  : "ca-app-pub-5120759618248888/6385972308";
-const interstitial = InterstitialAd.createForAdRequest(adUnitId, {
-  requestNonPersonalizedAdsOnly: true,
-  keywords: ["fashion", "clothing"],
-});
+// const adUnitId = __DEV__
+//   ? TestIds.INTERSTITIAL
+//   : "ca-app-pub-5120759618248888/9392760660";
+// const adUnitIdBanner = __DEV__
+//   ? TestIds.BANNER
+//   : "ca-app-pub-5120759618248888/6385972308";
+// const interstitial = InterstitialAd.createForAdRequest(adUnitId, {
+//   requestNonPersonalizedAdsOnly: true,
+//   keywords: ["fashion", "clothing"],
+// });
 export default function AboutScreen() {
   const [loaded, setLoaded] = useState(false);
 
-  useEffect(() => {
-    const unsubscribeLoaded = interstitial.addAdEventListener(
-      AdEventType.LOADED,
-      () => {
-        setLoaded(true);
-        console.log("Ad loaded successfully.");
-      }
-    );
+  // useEffect(() => {
+  //   const unsubscribeLoaded = interstitial.addAdEventListener(
+  //     AdEventType.LOADED,
+  //     () => {
+  //       setLoaded(true);
+  //       console.log("Ad loaded successfully.");
+  //     }
+  //   );
 
-    const unsubscribeError = interstitial.addAdEventListener(
-      AdEventType.ERROR,
-      (error) => {
-        console.log("Ad failed to load: ", error);
-      }
-    );
+  //   const unsubscribeError = interstitial.addAdEventListener(
+  //     AdEventType.ERROR,
+  //     (error) => {
+  //       console.log("Ad failed to load: ", error);
+  //     }
+  //   );
 
-    interstitial.load();
+  //   interstitial.load();
 
-    return () => {
-      unsubscribeLoaded();
-      unsubscribeError();
-    };
-  }, []);
+  //   return () => {
+  //     unsubscribeLoaded();
+  //     unsubscribeError();
+  //   };
+  // }, []);
 
-  useEffect(() => {
-    if (loaded) {
-      interstitial.show();
-      setLoaded(false);
-    }
-  }, [loaded]);
+  // useEffect(() => {
+  //   if (loaded) {
+  //     interstitial.show();
+  //     setLoaded(false);
+  //   }
+  // }, [loaded]);
   const ContactUsHandler = async () => {
     const phoneNumber = "+923170695979";
     const message =
@@ -117,13 +117,13 @@ export default function AboutScreen() {
         </Text>
       </TouchableOpacity>
       <View style={{ position: "absolute", bottom: 2 }}>
-        <BannerAd
+        {/* <BannerAd
           unitId={adUnitIdBanner}
           size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
           requestOptions={{
             requestNonPersonalizedAdsOnly: true,
           }}
-        />
+        /> */}
       </View>
     </SafeAreaView>
   );

@@ -10,46 +10,46 @@ import UniCard from "../components/uniCard";
 import { useNavigation } from "@react-navigation/native";
 import { firestoreDB } from "../config/firebaseConfig";
 import { collection, getDocs } from "firebase/firestore";
-import {
-  InterstitialAd,
-  AdEventType,
-  TestIds,
-  BannerAd,
-  BannerAdSize,
-} from "react-native-google-mobile-ads";
+// import {
+//   InterstitialAd,
+//   AdEventType,
+//   TestIds,
+//   BannerAd,
+//   BannerAdSize,
+// } from "react-native-google-mobile-ads";
 import { StatusBar } from "expo-status-bar";
 import { MaterialIcons } from "@expo/vector-icons";
 import style from "../components/styles";
 
-const adUnitId = __DEV__
-  ? TestIds.INTERSTITIAL
-  : "ca-app-pub-5120759618248888/9392760660";
-const adUnitIdBanner = __DEV__
-  ? TestIds.BANNER
-  : "ca-app-pub-5120759618248888/6385972308";
-const interstitial = InterstitialAd.createForAdRequest(adUnitId, {
-  requestNonPersonalizedAdsOnly: true,
-  keywords: ["fashion", "clothing"],
-});
+// const adUnitId = __DEV__
+//   ? TestIds.INTERSTITIAL
+//   : "ca-app-pub-5120759618248888/9392760660";
+// const adUnitIdBanner = __DEV__
+//   ? TestIds.BANNER
+//   : "ca-app-pub-5120759618248888/6385972308";
+// const interstitial = InterstitialAd.createForAdRequest(adUnitId, {
+//   requestNonPersonalizedAdsOnly: true,
+//   keywords: ["fashion", "clothing"],
+// });
 
 export default function Unipedia() {
   const [loaded, setLoaded] = useState(false);
-  useEffect(() => {
-    const unsubscribe = interstitial.addAdEventListener(
-      AdEventType.LOADED,
-      () => {
-        setLoaded(true);
-      }
-    );
-    interstitial.load();
-    return unsubscribe;
-  }, []);
-  useEffect(() => {
-    if (loaded) {
-      interstitial.show();
-      setLoaded(false);
-    }
-  }, [loaded]);
+  // useEffect(() => {
+  //   const unsubscribe = interstitial.addAdEventListener(
+  //     AdEventType.LOADED,
+  //     () => {
+  //       setLoaded(true);
+  //     }
+  //   );
+  //   interstitial.load();
+  //   return unsubscribe;
+  // }, []);
+  // useEffect(() => {
+  //   if (loaded) {
+  //     interstitial.show();
+  //     setLoaded(false);
+  //   }
+  // }, [loaded]);
   const navigation = useNavigation();
   const [universities, setUniversities] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -125,13 +125,13 @@ export default function Unipedia() {
         )}
       </View>
       <View style={{ position: "absolute", bottom: 2 }}>
-        <BannerAd
+        {/* <BannerAd
           unitId={adUnitIdBanner}
           size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
           requestOptions={{
             requestNonPersonalizedAdsOnly: true,
           }}
-        />
+        /> */}
       </View>
     </SafeAreaView>
   );

@@ -13,25 +13,25 @@ import { FlatList } from "react-native";
 import * as Linking from "expo-linking";
 import { collection, getDocs } from "firebase/firestore";
 import { firestoreDB } from "../config/firebaseConfig";
-import {
-  InterstitialAd,
-  TestIds,
-  AdEventType,
-  BannerAd,
-  BannerAdSize,
-} from "react-native-google-mobile-ads";
+// import {
+//   InterstitialAd,
+//   TestIds,
+//   AdEventType,
+//   BannerAd,
+//   BannerAdSize,
+// } from "react-native-google-mobile-ads";
 import { StatusBar } from "expo-status-bar";
 
-const adUnitId = __DEV__
-  ? TestIds.INTERSTITIAL
-  : "ca-app-pub-5120759618248888/9392760660";
-const adUnitIdBanner = __DEV__
-  ? TestIds.BANNER
-  : "ca-app-pub-5120759618248888/6385972308";
-const interstitial = InterstitialAd.createForAdRequest(adUnitId, {
-  requestNonPersonalizedAdsOnly: true,
-  keywords: ["fashion", "clothing"],
-});
+// const adUnitId = __DEV__
+//   ? TestIds.INTERSTITIAL
+//   : "ca-app-pub-5120759618248888/9392760660";
+// const adUnitIdBanner = __DEV__
+//   ? TestIds.BANNER
+//   : "ca-app-pub-5120759618248888/6385972308";
+// const interstitial = InterstitialAd.createForAdRequest(adUnitId, {
+//   requestNonPersonalizedAdsOnly: true,
+//   keywords: ["fashion", "clothing"],
+// });
 export default function AvailAbleNotesScreen() {
   const navigation = useNavigation();
   const route = useRoute();
@@ -40,36 +40,36 @@ export default function AvailAbleNotesScreen() {
   const [loading, setLoading] = useState(true);
   const [loaded, setLoaded] = useState(false);
 
-  useEffect(() => {
-    const unsubscribeLoaded = interstitial.addAdEventListener(
-      AdEventType.LOADED,
-      () => {
-        setLoaded(true);
-        console.log("Ad loaded successfully.");
-      }
-    );
+ // useEffect(() => {
+  //   const unsubscribeLoaded = interstitial.addAdEventListener(
+  //     AdEventType.LOADED,
+  //     () => {
+  //       setLoaded(true);
+  //       console.log("Ad loaded successfully.");
+  //     }
+  //   );
 
-    const unsubscribeError = interstitial.addAdEventListener(
-      AdEventType.ERROR,
-      (error) => {
-        console.log("Ad failed to load: ", error);
-      }
-    );
+  //   const unsubscribeError = interstitial.addAdEventListener(
+  //     AdEventType.ERROR,
+  //     (error) => {
+  //       console.log("Ad failed to load: ", error);
+  //     }
+  //   );
 
-    interstitial.load();
+  //   interstitial.load();
 
-    return () => {
-      unsubscribeLoaded();
-      unsubscribeError();
-    };
-  }, []);
+  //   return () => {
+  //     unsubscribeLoaded();
+  //     unsubscribeError();
+  //   };
+  // }, []);
 
-  useEffect(() => {
-    if (loaded) {
-      interstitial.show();
-      setLoaded(false);
-    }
-  }, [loaded]);
+  // useEffect(() => {
+  //   if (loaded) {
+  //     interstitial.show();
+  //     setLoaded(false);
+  //   }
+  // }, [loaded]);
   const getNotes = useCallback(async () => {
     const url = `data/${route.params.details.departmentID}/${route.params.details.url}`;
     console.log(url);
@@ -225,13 +225,13 @@ export default function AvailAbleNotesScreen() {
         <ActivityIndicator size={"large"} color={"#E367A6"} />
       )}
       <View style={{ position: "absolute", bottom: 2 }}>
-        <BannerAd
+        {/* <BannerAd
           unitId={adUnitIdBanner}
           size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
           requestOptions={{
             requestNonPersonalizedAdsOnly: true,
           }}
-        />
+        /> */}
       </View>
     </SafeAreaView>
   );

@@ -16,15 +16,15 @@ import { useCallback, useEffect, useState } from "react";
 import { doc, getDoc } from "firebase/firestore";
 import { firestoreDB } from "../config/firebaseConfig";
 import { StatusBar } from "expo-status-bar";
-import {
-  TestIds,
-  BannerAd,
-  BannerAdSize,
-} from "react-native-google-mobile-ads";
+// import {
+//   TestIds,
+//   BannerAd,
+//   BannerAdSize,
+// } from "react-native-google-mobile-ads";
 
-const adUnitIdBanner = __DEV__
-  ? TestIds.BANNER
-  : "ca-app-pub-5120759618248888/6385972308";
+// const adUnitIdBanner = __DEV__
+//   ? TestIds.BANNER
+//   : "ca-app-pub-5120759618248888/6385972308";
 export default function DepartmentsScreen() {
   const navigation = useNavigation();
   const route = useRoute();
@@ -104,13 +104,13 @@ export default function DepartmentsScreen() {
         <SepratorLine />
       </View>
       <View style={{ position: "absolute", bottom: 2 }}>
-        <BannerAd
+        {/* <BannerAd
           unitId={adUnitIdBanner}
           size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
           requestOptions={{
             requestNonPersonalizedAdsOnly: true,
           }}
-        />
+        /> */}
       </View>
     </SafeAreaView>
   );

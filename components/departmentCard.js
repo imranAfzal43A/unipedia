@@ -8,11 +8,12 @@ export default function DepartmentCard({ deptName, onPress }) {
         alignSelf: "center",
         justifyContent: "space-around",
         alignItems: "center",
-        borderWidth: 1,
+        //borderWidth: 1,
         width: "90%",
-        borderRadius: 10,
+        borderRadius: 5,
         marginBottom: 4,
         padding: 2,
+        backgroundColor:'#D4D4D4'
       }}
       onPress={onPress}
     >

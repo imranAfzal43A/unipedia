@@ -10,9 +10,10 @@ export default function UniCard({ uniName, onPress }) {
         justifyContent: "space-between",
         alignItems: "center",
         marginTop: 8,
-        borderRadius: 10,
-        borderWidth: 1,
+        borderRadius: 5,
+        //borderWidth: 1,
         padding: 10,
+        backgroundColor:'#D4D4D4'
       
       }}
       onPress={onPress}
