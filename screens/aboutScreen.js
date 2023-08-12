@@ -1,7 +1,7 @@
 import { SafeAreaView, Text, TouchableOpacity, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import * as Linking from "expo-linking";
-import style from "../components/styles";
+import style, { appColor } from "../components/styles";
 // import {
 //   InterstitialAd,
 //   TestIds,
@@ -73,58 +73,56 @@ export default function AboutScreen() {
 
   return (
     <SafeAreaView
-      style={{ flex: 1, backgroundColor: "#fff", justifyContent: "center" }}
+      style={{ flex: 1 }}
     >
-      <StatusBar backgroundColor="#fff" style="dark" />
-      <Text style={[style.textStyle, { fontSize: 28 }]}>Unipedia</Text>
-      <Text
-        style={{
-          textAlign: "justify",
-          fontFamily: "RR",
-          margin: 20,
-          padding: 10,
-          fontSize: 14,
-        }}
-      >
-        Unipedia is an intiative for university students to provide them notes
-        and past papers at a single place. The notes and past papers are
-        collected from students and uploaded to database which are available in
-        the app. If you find that you have something valueable for others then
-        contact us to share that content with others.
-      </Text>
-      <Text
-        style={{
-          textAlign: "justify",
-          fontFamily: "RM",
-          margin: 20,
-          padding: 10,
-          alignSelf: "center",
-          color: "red",
-          fontSize: 12,
-        }}
-      >
-        For suggestion and contribution.
-      </Text>
-      <TouchableOpacity style={style.contactButton} onPress={ContactUsHandler}>
-        <Ionicons
-          name="ios-logo-whatsapp"
-          size={24}
-          color="#E367A6"
-          style={{ alignSelf: "center" }}
-        />
-        <Text style={[style.textStyle, { padding: 11, fontSize: 18 }]}>
-          Contact Us
-        </Text>
-      </TouchableOpacity>
-      <View style={{ position: "absolute", bottom: 2 }}>
-        {/* <BannerAd
-          unitId={adUnitIdBanner}
-          size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
-          requestOptions={{
-            requestNonPersonalizedAdsOnly: true,
+
+      <View style={{ flex: 0.7,backgroundColor:appColor ,justifyContent:'center',borderBottomLeftRadius:30,borderBottomRightRadius:30}}>
+        <StatusBar backgroundColor={appColor} style="dark" />
+        <Text style={[style.textStyle, { fontSize: 28,color:'#fff' }]}>Unipedia</Text>
+        <Text
+          style={{
+            textAlign: "justify",
+            fontFamily: "RM",
+            margin: 20,
+            padding: 10,
+            fontSize: 14,
+            color:'#fff'
           }}
-        /> */}
+        >
+          Unipedia is an intiative for university students to provide them notes
+          and past papers at a single place. The notes and past papers are
+          collected from students and uploaded to database which are available in
+          the app. If you find that you have something valueable for others then
+          contact us to share that content with others.
+        </Text>
       </View>
+      <View style={{ flex: 0.2 }}>
+        <Text
+          style={{
+            textAlign: "justify",
+            fontFamily: "RM",
+            margin: 20,
+            padding: 10,
+            alignSelf: "center",
+            color: "red",
+            fontSize: 12,
+          }}
+        >
+          For suggestion and contribution.
+        </Text>
+        <TouchableOpacity style={style.contactButton} onPress={ContactUsHandler}>
+          <Ionicons
+            name="ios-logo-whatsapp"
+            size={24}
+            color="#E367A6"
+            style={{ alignSelf: "center" }}
+          />
+          <Text style={[style.textStyle, { padding: 11, fontSize: 18 }]}>
+            Contact Us
+          </Text>
+        </TouchableOpacity>
+      </View>
+
     </SafeAreaView>
   );
 }

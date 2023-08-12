@@ -95,9 +95,12 @@ const style = StyleSheet.create({
     marginLeft: 5,
     marginBottom: 4,
     padding: 5,
-    borderRadius: 6,
+    borderRadius: 4,
     borderWidth: 1,
     borderColor: "black",
+    backgroundColor:'#D4D4D4'
+    
   },
 });
 export default style;
+export const appColor="#CB61C5"

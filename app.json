@@ -2,7 +2,7 @@
   "expo": {
     "name": "unipedia",
     "slug": "unipedia",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -23,7 +23,8 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.imranafzal.unipedia"
+      "package": "com.imranafzal.unipedia",
+      "versionCode": 3
     },
     "web": {
       "favicon": "./assets/favicon.png"

@@ -10,13 +10,12 @@ import UniCard from "../components/uniCard";
 import { useNavigation } from "@react-navigation/native";
 import { firestoreDB } from "../config/firebaseConfig";
 import { collection, getDocs } from "firebase/firestore";
-// import {
-//   InterstitialAd,
-//   AdEventType,
-//   TestIds,
-//   BannerAd,
-//   BannerAdSize,
-// } from "react-native-google-mobile-ads";
+import {
+
+  TestIds,
+  BannerAd,
+  BannerAdSize,
+} from "react-native-google-mobile-ads";
 import { StatusBar } from "expo-status-bar";
 import { MaterialIcons } from "@expo/vector-icons";
 import style from "../components/styles";
@@ -24,9 +23,9 @@ import style from "../components/styles";
 // const adUnitId = __DEV__
 //   ? TestIds.INTERSTITIAL
 //   : "ca-app-pub-5120759618248888/9392760660";
-// const adUnitIdBanner = __DEV__
-//   ? TestIds.BANNER
-//   : "ca-app-pub-5120759618248888/6385972308";
+const adUnitIdBanner = __DEV__
+  ? TestIds.BANNER
+  : "ca-app-pub-5120759618248888/2874363438";
 // const interstitial = InterstitialAd.createForAdRequest(adUnitId, {
 //   requestNonPersonalizedAdsOnly: true,
 //   keywords: ["fashion", "clothing"],
@@ -124,14 +123,14 @@ export default function Unipedia() {
           <ActivityIndicator size={"large"} color={"#E367A6"} />
         )}
       </View>
-      <View style={{ position: "absolute", bottom: 2 }}>
-        {/* <BannerAd
+      <View style={{ position: "absolute", bottom: 50 }}>
+        <BannerAd
           unitId={adUnitIdBanner}
           size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
           requestOptions={{
             requestNonPersonalizedAdsOnly: true,
           }}
-        /> */}
+        />
       </View>
     </SafeAreaView>
   );
