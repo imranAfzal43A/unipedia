@@ -11,7 +11,6 @@ import { useNavigation } from "@react-navigation/native";
 import { firestoreDB } from "../config/firebaseConfig";
 import { collection, getDocs } from "firebase/firestore";
 import {
-
   TestIds,
   BannerAd,
   BannerAdSize,

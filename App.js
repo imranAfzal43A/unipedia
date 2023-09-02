@@ -7,14 +7,12 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import AboutScreen from "./screens/aboutScreen";
 import DepartmentsScreen from "./screens/departmentsScreen";
 import { useFonts } from "expo-font";
-import * as SplashScreen from "expo-splash-screen";
 import Unipedia from "./screens/uniPediaScreen";
 import AvailAbleNotesScreen from "./screens/availablenotesScreen";
 import { StatusBar } from "expo-status-bar";
 import BooksScreen from "./screens/booksScreen";
 import NotificationScreen from "./screens/notificationScreen";
-
-SplashScreen.preventAutoHideAsync();
+import { ActivityIndicator, View } from "react-native";
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 const Tabs = () => {
@@ -86,19 +84,8 @@ export default function App() {
     RR: require("./assets/fonts/Roboto-Regular.ttf"),
   });
 
-  const onLayoutRootView = useCallback(async () => {
-    if (fontsLoaded) {
-      await SplashScreen.hideAsync();
-    }
-  }, [fontsLoaded]);
-  useEffect(() => {
-    onLayoutRootView();
-  }, [fontsLoaded]);
-  if (!fontsLoaded) {
-    return null;
-  }
 
-  return (
+  return fontsLoaded ? (
     <NavigationContainer>
       <StatusBar style="auto" />
       <Stack.Navigator
@@ -131,5 +118,7 @@ export default function App() {
         />
       </Stack.Navigator>
     </NavigationContainer>
-  );
+  ) : <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+    <ActivityIndicator size={'large'} />
+  </View>
 }
