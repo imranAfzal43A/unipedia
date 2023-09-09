@@ -1,18 +1,6 @@
-import {
-  SafeAreaView,
-  Text,
-  View,
-  TouchableOpacity,
-  ActivityIndicator,
-} from "react-native";
-import style from "../components/styles";
-import { Entypo, Ionicons, MaterialIcons } from "@expo/vector-icons";
-import { useNavigation, useRoute } from "@react-navigation/native";
-import React, { useCallback, useEffect, useState } from "react";
-import { FlatList } from "react-native";
-import * as Linking from "expo-linking";
-import { collection, getDocs } from "firebase/firestore";
-import { firestoreDB } from "../config/firebaseConfig";
+import { Entypo, Ionicons, MaterialIcons } from '@expo/vector-icons';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import * as Linking from 'expo-linking';
 // import {
 //   InterstitialAd,
 //   TestIds,
@@ -20,7 +8,21 @@ import { firestoreDB } from "../config/firebaseConfig";
 //   BannerAd,
 //   BannerAdSize,
 // } from "react-native-google-mobile-ads";
-import { StatusBar } from "expo-status-bar";
+import { StatusBar } from 'expo-status-bar';
+import { collection, getDocs } from 'firebase/firestore';
+import React, { useCallback, useEffect, useState } from 'react';
+import {
+  FlatList,
+  SafeAreaView,
+  Text,
+  View,
+  TouchableOpacity,
+  ActivityIndicator,
+  Platform,
+} from 'react-native';
+
+import style from '../components/styles';
+import { firestoreDB } from '../config/firebaseConfig';
 
 // const adUnitId = __DEV__
 //   ? TestIds.INTERSTITIAL
@@ -35,7 +37,7 @@ import { StatusBar } from "expo-status-bar";
 export default function AvailAbleNotesScreen() {
   const navigation = useNavigation();
   const route = useRoute();
-  console.log("", route.params);
+  console.log('', route.params);
   const [notes, setNotes] = useState([]);
   const [loading, setLoading] = useState(true);
   //const [loaded, setLoaded] = useState(false);
@@ -86,7 +88,7 @@ export default function AvailAbleNotesScreen() {
       setLoading(false);
     } catch (e) {
       setLoading(false);
-      console.log("Error! Cannot get notes:", e);
+      console.log('Error! Cannot get notes:', e);
     }
   }, []);
   useEffect(() => {
@@ -101,31 +103,25 @@ export default function AvailAbleNotesScreen() {
           </Text>
           <Text style={style.source}>
             Teacher:
-            <Text style={style.teacher}>
-              {item.teacher ? item.teacher : "Unknown"}
-            </Text>
+            <Text style={style.teacher}>{item.teacher ? item.teacher : 'Unknown'}</Text>
           </Text>
           <Text style={style.source}>
             Source:
-            <Text style={style.teacher}>
-              {item.source ? item.source : "Unknown"}
-            </Text>
+            <Text style={style.teacher}>{item.source ? item.source : 'Unknown'}</Text>
           </Text>
           <Text style={style.source}>
             Type:
-            <Text style={style.teacher}>
-              {item.type ? item.type : "Unknown"}
-            </Text>
+            <Text style={style.teacher}>{item.type ? item.type : 'Unknown'}</Text>
           </Text>
         </View>
-        <View style={{ justifyContent: "center" }}>
+        <View style={{ justifyContent: 'center' }}>
           <Ionicons
             name="ios-cloud-download"
             size={30}
             color="#E367A6"
             onPress={() => {
-              if (item?.link === "link") {
-                alert("Notes not available yet");
+              if (item?.link === 'link') {
+                alert('Notes not available yet');
               } else {
                 Linking.openURL(item.link);
               }
@@ -136,18 +132,17 @@ export default function AvailAbleNotesScreen() {
     );
   };
   const ContactUsHandler = async () => {
-    const phoneNumber = "+923170695979";
-    const message =
-      "Hi, I want to contribute to Unipedia. I have something to share";
+    const phoneNumber = '+923170695979';
+    const message = 'Hi, I want to contribute to Unipedia. I have something to share';
     try {
       const whatsappUrl =
-        Platform.OS === "ios"
+        Platform.OS === 'ios'
           ? `whatsapp://send?phone=${phoneNumber}&text=${message}`
           : `whatsapp://send?phone=+${phoneNumber}&text=${message}`;
 
       await Linking.openURL(whatsappUrl);
     } catch (error) {
-      console.log("Error opening WhatsApp:", error);
+      console.log('Error opening WhatsApp:', error);
     }
   };
 
@@ -157,74 +152,61 @@ export default function AvailAbleNotesScreen() {
       <View
         style={{
           marginTop: 20,
-          justifyContent: "center",
-          flexDirection: "row",
-        }}
-      >
-        <TouchableOpacity
-          style={style.backButton}
-          onPress={() => navigation.goBack()}
-        >
-          <Entypo name={"chevron-left"} size={24} color="#fff" />
+          justifyContent: 'center',
+          flexDirection: 'row',
+        }}>
+        <TouchableOpacity style={style.backButton} onPress={() => navigation.goBack()}>
+          <Entypo name="chevron-left" size={24} color="#fff" />
         </TouchableOpacity>
         <Text style={style.appBarTitle}>{route.params.details.department}</Text>
       </View>
       <View
         style={{
-          flexDirection: "row",
-          justifyContent: "space-evenly",
+          flexDirection: 'row',
+          justifyContent: 'space-evenly',
           marginTop: 50,
-        }}
-      >
+        }}>
         <Text style={style.textStyle}>{route.params.details.program}</Text>
-        <Text style={style.textStyle}>
-          Semester {route.params.details.semester}
-        </Text>
+        <Text style={style.textStyle}>Semester {route.params.details.semester}</Text>
       </View>
       {!loading ? (
         <>
-          {notes.length != 0 ? (
+          {notes.length !== 0 ? (
             <FlatList data={notes} renderItem={renderItem} />
           ) : (
-            <View style={{ justifyContent: "center", alignItems: "center" }}>
+            <View style={{ justifyContent: 'center', alignItems: 'center' }}>
               <MaterialIcons name="error" size={40} color="#E367A6" />
               <Text style={[style.textStyle, { fontSize: 18 }]}>
                 Sorry ! no notes available yet.
               </Text>
               <Text
                 style={{
-                  textAlign: "justify",
-                  fontFamily: "RM",
+                  textAlign: 'justify',
+                  fontFamily: 'RM',
                   margin: 20,
                   padding: 10,
-                  alignSelf: "center",
-                  color: "red",
+                  alignSelf: 'center',
+                  color: 'red',
                   fontSize: 12,
-                }}
-              >
+                }}>
                 For suggestion and contribution.
               </Text>
-              <TouchableOpacity
-                style={style.contactButton}
-                onPress={ContactUsHandler}
-              >
+              <TouchableOpacity style={style.contactButton} onPress={ContactUsHandler}>
                 <Ionicons
                   name="ios-logo-whatsapp"
                   size={24}
                   color="#E367A6"
-                  style={{ alignSelf: "center" }}
+                  style={{ alignSelf: 'center' }}
                 />
-                <Text style={[style.textStyle, { padding: 11, fontSize: 18 }]}>
-                  Contact Us
-                </Text>
+                <Text style={[style.textStyle, { padding: 11, fontSize: 18 }]}>Contact Us</Text>
               </TouchableOpacity>
             </View>
           )}
         </>
       ) : (
-        <ActivityIndicator size={"large"} color={"#E367A6"} />
+        <ActivityIndicator size="large" color="#E367A6" />
       )}
-      <View style={{ position: "absolute", bottom: 2 }}>
+      <View style={{ position: 'absolute', bottom: 2 }}>
         {/* <BannerAd
           unitId={adUnitIdBanner}
           size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}

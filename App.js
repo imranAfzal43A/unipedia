@@ -1,27 +1,26 @@
-import { NavigationContainer } from "@react-navigation/native";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Entypo, Ionicons } from "@expo/vector-icons";
-import { FontAwesome } from "@expo/vector-icons";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import AboutScreen from "./screens/aboutScreen";
-import DepartmentsScreen from "./screens/departmentsScreen";
-import { useFonts } from "expo-font";
-import Unipedia from "./screens/uniPediaScreen";
-import AvailAbleNotesScreen from "./screens/availablenotesScreen";
-import { StatusBar } from "expo-status-bar";
-import BooksScreen from "./screens/booksScreen";
-import NotificationScreen from "./screens/notificationScreen";
-import { ActivityIndicator, View } from "react-native";
+import { Entypo, Ionicons, FontAwesome } from '@expo/vector-icons';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { useFonts } from 'expo-font';
+import { StatusBar } from 'expo-status-bar';
+import { ActivityIndicator, View } from 'react-native';
+
+import AboutScreen from './screens/aboutScreen';
+import AvailAbleNotesScreen from './screens/availablenotesScreen';
+import BooksScreen from './screens/booksScreen';
+import DepartmentsScreen from './screens/departmentsScreen';
+import NotificationScreen from './screens/notificationScreen';
+import Unipedia from './screens/uniPediaScreen';
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 const Tabs = () => {
   return (
     <Tab.Navigator
       screenOptions={() => ({
-        tabBarActiveTintColor: "#CB61C5",
-        tabBarInactiveTintColor: "black",
-      })}
-    >
+        tabBarActiveTintColor: '#CB61C5',
+        tabBarInactiveTintColor: 'black',
+      })}>
       <Tab.Screen
         name="Unipedia"
         component={Unipedia}
@@ -30,7 +29,7 @@ const Tabs = () => {
             return <FontAwesome name="university" size={24} color={color} />;
           },
           headerShown: false,
-          tabBarActiveTintColor: "#CB61C5",
+          tabBarActiveTintColor: '#CB61C5',
           headerTitle: () => null,
         }}
       />
@@ -42,7 +41,7 @@ const Tabs = () => {
             return <Entypo name="open-book" size={24} color={color} />;
           },
           headerShown: false,
-          tabBarActiveTintColor: "#CB61C5",
+          tabBarActiveTintColor: '#CB61C5',
           headerTitle: () => null,
         }}
       />
@@ -55,7 +54,7 @@ const Tabs = () => {
             return <Ionicons name="notifications" size={24} color={color} />;
           },
           headerShown: false,
-          tabBarActiveTintColor: "#CB61C5",
+          tabBarActiveTintColor: '#CB61C5',
           headerTitle: () => null,
         }}
       />
@@ -65,11 +64,9 @@ const Tabs = () => {
         component={AboutScreen}
         options={{
           tabBarIcon: ({ color }) => {
-            return (
-              <Ionicons name="information-circle" size={24} color={color} />
-            );
+            return <Ionicons name="information-circle" size={24} color={color} />;
           },
-          tabBarActiveTintColor: "#CB61C5",
+          tabBarActiveTintColor: '#CB61C5',
           headerShown: false,
         }}
       />
@@ -78,11 +75,10 @@ const Tabs = () => {
 };
 export default function App() {
   const [fontsLoaded] = useFonts({
-    RB: require("./assets/fonts/Roboto-Bold.ttf"),
-    RM: require("./assets/fonts/Roboto-Medium.ttf"),
-    RR: require("./assets/fonts/Roboto-Regular.ttf"),
+    RB: require('./assets/fonts/Roboto-Bold.ttf'),
+    RM: require('./assets/fonts/Roboto-Medium.ttf'),
+    RR: require('./assets/fonts/Roboto-Regular.ttf'),
   });
-
 
   return fontsLoaded ? (
     <NavigationContainer>
@@ -90,17 +86,16 @@ export default function App() {
       <Stack.Navigator
         screenOptions={{
           headerTitleStyle: {
-            fontFamily: "RB",
+            fontFamily: 'RB',
           },
-        }}
-      >
+        }}>
         <Stack.Screen
           name="Tabs"
           component={Tabs}
           options={{
             headerShown: false,
             headerTitleStyle: {
-              fontFamily: "RR",
+              fontFamily: 'RR',
               fontSize: 22,
             },
           }}
@@ -117,7 +112,9 @@ export default function App() {
         />
       </Stack.Navigator>
     </NavigationContainer>
-  ) : <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-    <ActivityIndicator size={'large'} />
-  </View>
+  ) : (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <ActivityIndicator size="large" />
+    </View>
+  );
 }

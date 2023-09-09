@@ -1,8 +1,8 @@
-import { useNavigation } from "@react-navigation/native";
-import React, { useState } from "react";
-import { FlatList } from "react-native";
-import { Modal, StyleSheet, Text, Pressable, View } from "react-native";
-import { AntDesign } from "@expo/vector-icons";
+import { AntDesign } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
+import React, { useState } from 'react';
+import { FlatList, Modal, StyleSheet, Text, Pressable, View } from 'react-native';
+
 const bsSemesters = [
   {
     id: 1,
@@ -45,10 +45,10 @@ export default function SelectSemester({
   DepartmentID,
 }) {
   const navigation = useNavigation();
-  const [selectedProgram, setSelectedProgram] = useState("");
+  const [selectedProgram, setSelectedProgram] = useState('');
   const selectedProgramHandler = (program) => {
     if (selectedProgram === program) {
-      setSelectedProgram("");
+      setSelectedProgram('');
     } else {
       setSelectedProgram(program);
     }
@@ -60,15 +60,15 @@ export default function SelectSemester({
           style.button,
 
           {
-            width: "35%",
-            borderColor: "#E367A6",
+            width: '35%',
+            borderColor: '#E367A6',
             borderWidth: 2,
             marginLeft: 20,
           },
         ]}
         onPress={() => {
           setModalVisible(false);
-          navigation.navigate("AvailAbleNotes", {
+          navigation.navigate('AvailAbleNotes', {
             details: {
               department: Department,
               program: selectedProgram,
@@ -77,63 +77,46 @@ export default function SelectSemester({
               url: `${selectedProgram}${item.id}`,
             },
           });
-        }}
-      >
+        }}>
         <Text style={style.textStyle}>{item.id}</Text>
       </Pressable>
     );
   };
   return (
-    <Modal
-      animationType="slide"
-      transparent={true}
-      visible={modalVisible}
-      onRequestClose={onRequestClose}
-    >
-      <View style={{ justifyContent: "center", alignItems: "center" }}>
+    <Modal animationType="slide" transparent visible={modalVisible} onRequestClose={onRequestClose}>
+      <View style={{ justifyContent: 'center', alignItems: 'center' }}>
         <View style={style.modalView}>
           <Text style={style.modalText}>Select your programme</Text>
           <Pressable
             style={[
               style.button,
-              { backgroundColor: "#fff", borderWidth: 1, borderRadius: 6 },
-              selectedProgram === "BS"
-                ? { borderColor: "#E367A6" }
-                : { borderColor: "#fff" },
+              { backgroundColor: '#fff', borderWidth: 1, borderRadius: 6 },
+              selectedProgram === 'BS' ? { borderColor: '#E367A6' } : { borderColor: '#fff' },
             ]}
-            onPress={() => selectedProgramHandler("BS")}
-          >
+            onPress={() => selectedProgramHandler('BS')}>
             <Text style={style.textStyle}>BS</Text>
           </Pressable>
-          {selectedProgram === "BS" ? (
+          {selectedProgram === 'BS' ? (
             <FlatList
               data={bsSemesters}
               renderItem={renderItem}
               numColumns={2}
-              style={{ alignSelf: "center" }}
+              style={{ alignSelf: 'center' }}
             />
           ) : null}
           <Pressable
             style={[
               style.button,
               { marginTop: 20 },
-              { backgroundColor: "#fff", borderWidth: 1, borderRadius: 6 },
-              selectedProgram === "MS"
-                ? { borderColor: "#E367A6" }
-                : { borderColor: "#fff" },
+              { backgroundColor: '#fff', borderWidth: 1, borderRadius: 6 },
+              selectedProgram === 'MS' ? { borderColor: '#E367A6' } : { borderColor: '#fff' },
             ]}
-            onPress={() => selectedProgramHandler("MS")}
-          >
+            onPress={() => selectedProgramHandler('MS')}>
             <Text style={style.textStyle}>M Phil / MS</Text>
           </Pressable>
-          {selectedProgram === "MS" ? (
-            <FlatList
-              data={msSemesters}
-              renderItem={renderItem}
-              numColumns={2}
-            />
+          {selectedProgram === 'MS' ? (
+            <FlatList data={msSemesters} renderItem={renderItem} numColumns={2} />
           ) : null}
-          
         </View>
         <AntDesign name="closecircle" size={40} color="#E367A6" onPress={setModalVisible} />
       </View>
@@ -144,12 +127,12 @@ export default function SelectSemester({
 const style = StyleSheet.create({
   modalView: {
     margin: 20,
-    backgroundColor: "#E5E5E5",
+    backgroundColor: '#E5E5E5',
     borderRadius: 10,
     padding: 35,
-    width: "80%",
-    height: "80%",
-    shadowColor: "#000",
+    width: '80%',
+    height: '80%',
+    shadowColor: '#000',
     shadowOffset: {
       width: 0,
       height: 2,
@@ -162,19 +145,19 @@ const style = StyleSheet.create({
     borderRadius: 4,
     padding: 10,
     //elevation: 2,
-    width: "90%",
-    alignSelf: "center",
+    width: '90%',
+    alignSelf: 'center',
     margin: 6,
-    backgroundColor: "#fff",
+    backgroundColor: '#fff',
   },
   textStyle: {
-    color: "black",
-    fontFamily: "RM",
-    textAlign: "center",
+    color: 'black',
+    fontFamily: 'RM',
+    textAlign: 'center',
   },
   modalText: {
     marginBottom: 15,
-    textAlign: "center",
-    fontFamily: "RM",
+    textAlign: 'center',
+    fontFamily: 'RM',
   },
 });
