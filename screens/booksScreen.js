@@ -6,7 +6,6 @@ import {
   FlatList,
   ActivityIndicator,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 import { firestoreDB } from "../config/firebaseConfig";
 import { collection, getDocs } from "firebase/firestore";
 // import {

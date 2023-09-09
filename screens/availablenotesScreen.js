@@ -8,7 +8,7 @@ import {
 import style from "../components/styles";
 import { Entypo, Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { FlatList } from "react-native";
 import * as Linking from "expo-linking";
 import { collection, getDocs } from "firebase/firestore";
@@ -38,9 +38,9 @@ export default function AvailAbleNotesScreen() {
   console.log("", route.params);
   const [notes, setNotes] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [loaded, setLoaded] = useState(false);
+  //const [loaded, setLoaded] = useState(false);
 
- // useEffect(() => {
+  // useEffect(() => {
   //   const unsubscribeLoaded = interstitial.addAdEventListener(
   //     AdEventType.LOADED,
   //     () => {
